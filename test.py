@@ -2,7 +2,6 @@ import torch
 import time
 import numpy as np
 from torch import nn
-import matplotlib.pyplot as plt
 
 class PerformanceTest:
     def __init__(self):
@@ -83,18 +82,6 @@ class PerformanceTest:
         
         return cpu_time, gpu_time
 
-    def plot_results(self, sizes, cpu_times, gpu_times, title):
-        """Plot performance comparison"""
-        plt.figure(figsize=(10, 6))
-        plt.plot(sizes, cpu_times, 'b-', label='CPU')
-        plt.plot(sizes, gpu_times, 'r-', label='GPU')
-        plt.xlabel('Matrix Size' if 'Matrix' in title else 'Input Size')
-        plt.ylabel('Time (seconds)')
-        plt.title(title)
-        plt.legend()
-        plt.grid(True)
-        plt.show()
-
 def main():
     test = PerformanceTest()
     
@@ -113,10 +100,6 @@ def main():
         print(f"GPU Time: {gpu_time:.4f} seconds")
         print(f"Speedup: {cpu_time/gpu_time:.2f}x")
     
-    # Plot matrix multiplication results
-    test.plot_results(matrix_sizes, cpu_times_matrix, gpu_times_matrix, 
-                     'Matrix Multiplication Performance Comparison')
-    
     # Test 2: Neural Network Training
     input_sizes = [100, 200, 300, 400, 500]
     cpu_times_nn = []
@@ -133,10 +116,6 @@ def main():
         print(f"CPU Time: {cpu_time:.4f} seconds")
         print(f"GPU Time: {gpu_time:.4f} seconds")
         print(f"Speedup: {cpu_time/gpu_time:.2f}x")
-    
-    # Plot neural network results
-    test.plot_results(input_sizes, cpu_times_nn, gpu_times_nn, 
-                     'Neural Network Training Performance Comparison')
 
 if __name__ == "__main__":
     main()
